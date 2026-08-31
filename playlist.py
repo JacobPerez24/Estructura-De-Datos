@@ -91,11 +91,11 @@ while True:
         genr = input (" INSERT THE GENR OF THE SONG :") 
         my_playlist.insert_end(title, artist, year, genr)
     elif option == "2":
-        print("DELTED SONGS\n")
-        title = input("ENTER THE NAME OF THE SONG TO DELETE: ")
+        print("SEARCH SONGS\n")
+        title = input("ENTER THE NAME OF THE SONG TO SEARCH: ")
         song = my_playlist.search_song(title)
         if song:
-            print(f"SONG DELETED: {song.title} - {song.artist} - {song.year} - {song.genr}")
+            print(f"SONG SEARCHED: {song.title} - {song.artist} - {song.year} - {song.genr}")
         else:
             print("SONG NOT FOUND")
     elif option == "3":
