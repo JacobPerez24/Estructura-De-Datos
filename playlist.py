@@ -23,7 +23,7 @@ class ListaEnlazada:
     #     self.size += 1
 
     def insert_end(self, title,artist, year, genr):
-        new = Node(title,artist, year, genr)
+        new = Node(title.lower(),artist, year, genr)
         if self.head is None:
             self.head = new
             self.tail = new
@@ -60,6 +60,39 @@ class ListaEnlazada:
     def get_size(self):
         return self.size
 
+
+    def delete_song(self, title):
+        title = title.lower()
+        if self.head is None:
+            return None
+        if self.head.title == title:
+            deleted_node = self.head
+            self.head = self.head.next
+            
+    
+            if self.head is None:
+                self.tail = None
+                
+            self.size -= 1
+            return deleted_node
+
+
+        current = self.head
+        while current.next is not None:
+            if current.next.title == title:
+                deleted_node = current.next
+                
+                current.next = current.next.next
+            
+                if deleted_node == self.tail:
+                    self.tail = current
+                    
+                self.size -= 1
+                return deleted_node
+            
+            current = current.next
+        return None
+
 my_playlist = ListaEnlazada()
 
 # print(my_playlist.get_size())
@@ -67,7 +100,7 @@ my_playlist = ListaEnlazada()
 while True:
     print("------MENU-------")
     print("1. INSERT SONGS")
-    print("2. SEARCH SONGS")
+    print("2. DELETE SONGS")
     print("3. SHOW SONGS")
     print("4. EXIT")
 
@@ -81,12 +114,18 @@ while True:
         genr = input (" INSERT THE GENR OF THE SONG :") 
         my_playlist.insert_end(title, artist, year, genr)
     elif option == "2":
-        print("SEARCH SONGS\n")
+        print("DELETE SONGS\n")
+        title = input("ENTER THE NAME OF THE SONG TO DELETE : ")
+        song = my_playlist.delete_song(title)
+        if song:
+            print(f"SONG DELETED : {song.title} - {song.artist} - {song.year} - {song.genr}")
+        else:
+            print("SONG NOT FOUND")
     elif option == "3":
         print("SHOW SONGS\n")
         my_playlist.print_list()
     elif option == "4":
-        print("------------ PROGRAM COMPLETED -----------")
+        print("------------ PROGRAM COMPLETED delete-----------")
         break
     else:
         print("THAT ISN'T AN OPTION")
